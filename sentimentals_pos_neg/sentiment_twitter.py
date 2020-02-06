@@ -15,11 +15,15 @@ csecret="y6ys8nryuk38NhRGuJOiOT6nNJ4ChOfYvXl5SvkT1gW3yOxKEO"
 atoken="944854539055886338-C0KshuXpjPmNAWprSN0Lxr1r0CLcR8c"
 asecret="YNMovhC6vbztJMDdZ2B4Gc4gtCGqRLvfXEBLXe2ix4LgG"
 
-class listener(StreamListener):
 
+class listener(StreamListener):
+    
     def on_data(self, data):
         all_data = json.loads(data)
 
+        if "limit" in all_data:
+            return True
+            
         tweet = all_data["text"]
         # check if language is english
         tweet_blob = TextBlob(tweet)
@@ -44,4 +48,4 @@ auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
 
 twitterStream = Stream(auth, listener())
-twitterStream.filter(track=["1917"])
+twitterStream.filter(track=["trump", "president"]) ## follow, track, async, location, count, stall_warnings, languages
