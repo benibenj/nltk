@@ -3,7 +3,7 @@ import matplotlib.animation as animation
 from matplotlib import style
 import time
 
-style.use('fivethirtyeight') # ggplot
+style.use('ggplot') # ggplot, fivethirtyeight
 
 fig = plt.figure()
 ax1 = fig.add_subplot(1,1,1)
