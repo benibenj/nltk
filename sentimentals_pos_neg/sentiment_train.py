@@ -36,13 +36,13 @@ class VoteClassifier(ClassifierI):
 short_pos = open("positive.txt","r").read()
 short_neg = open("negative.txt","r").read()
 
-# move this up here
+
 all_words = []
 documents = []
 
 
 #  j is adject, r is adverb, and v is verb
-#allowed_word_types = ["J","R","V"]
+# allowed_word_types = ["J","R","V"]
 allowed_word_types = ["J"]
 
 for p in short_pos.split('\n'):
