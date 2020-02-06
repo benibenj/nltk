@@ -1,3 +1,5 @@
+# - *- coding: utf- 8 - *-
+from textblob import TextBlob
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
@@ -19,15 +21,19 @@ class listener(StreamListener):
         all_data = json.loads(data)
 
         tweet = all_data["text"]
+        # check if language is english
+        tweet_blob = TextBlob(tweet)
+        lang = tweet_blob.detect_language()
 
-        sentiment_value, confidence = s.sentiment(tweet)
-        print(tweet, sentiment_value, confidence)
+        if lang == "en" and "RT" not in tweet and "https" not in tweet:
+            sentiment_value, confidence = s.sentiment(tweet)
+            print(tweet, sentiment_value, confidence)
 
-        if confidence >= 0.8:
-            output = open("twitter-out.txt", "a")
-            output.write(sentiment_value)
-            output.write("\n")
-            output.close()
+            if confidence >= 0.8:
+                output = open("twitter-out.txt", "a")
+                output.write(sentiment_value)
+                output.write("\n")
+                output.close()
 
         return True
 
